@@ -21,12 +21,12 @@ module HexletCode
 		end
 	end
 
-	def self.form_for(user)
+	def self.form_for(user, &block)
 
 		form = FormBuilder.new(user)
-		yield form
+		res =  block.call(form)
 
-		"<form>"
+		"<form #{res}>"
 	end
 
 
@@ -35,9 +35,11 @@ module HexletCode
 end
 
 User = Struct.new(:name, :job)
-user = User.new(name: "John", job: "home" )
+user = User.new({name: "John", job: "home"})
 
 p HexletCode::Tag.build('input',{:type => "text", :value => "name"})
-p HexletCode.form_for user do |f|
+func = HexletCode.form_for user do |f|
 	f.input
 end
+
+p func
