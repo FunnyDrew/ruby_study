@@ -1,2 +1,2 @@
 run:
-	ruby lib/try.rb
+	ruby lib/project1.rb
